@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'galeria',
 ]
 
 MIDDLEWARE = [
@@ -54,10 +55,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'setup.urls'
 
+# Toda configuração responsável pela parte visual da aplicação
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +121,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# O diretório dos arquivos estáticos
+# Todos os nossos arquivos estáticos estão dentro dessa pasta
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'setup/static') # BASE_DIR se refere ao diretório principal
+]
+
+# Qual é a raiz dos caminhos
+# É o caminho absoluto para o diretório onde o python vai coletar esses arquivos 
+#estáticos para que ele faça a implantação/manipulação de onde estão todos os arquivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
