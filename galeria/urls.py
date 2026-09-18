@@ -5,5 +5,5 @@ from galeria.views import index, imagem
 
 urlpatterns = [
     path('', index, name='index'), # Rota da página principal
-    path('imagem/', imagem, name='imagem') # Rota da página imagem.html
+    path('imagem/<int:foto_id>', imagem, name='imagem') # Rota da página imagem.html
 ]
