@@ -8,11 +8,23 @@
 """
 from django.db import models ##
 
+""" ========Toda vez que alter o model é preciso fazer migratrion========="""
+
 # Representa uma tabela no banco de dados
 # Classe -> Model -> Tabela
 class Fotografia(models.Model): # Herdando a biblioteca
+    
+    # E preciso ser uma tupla pois o método CharField foi criado para interpretar tuplas
+    OPCOES_CATEGORIA = [
+        ("NEBULOSA", "Nebulosa"),
+        ("ESTRELA", "Estrela"),
+        ("GALÁXIA", "Galáxia"),
+        ("PLANETA", "Planeta")
+    ]
+    
     nome = models.CharField(max_length=100, null=False, blank=False) # Maximo de caracteries / Não pode ser vazio / Não pode ser uma string vazia
     legenda = models.CharField(max_length=150, null=False, blank=False)
+    categoria = models.CharField(max_length=100, choices=OPCOES_CATEGORIA, default="")
     descricao = models.TextField(null=False, blank=False)
     foto = models.CharField(max_length=100, null=False, blank=False)
     
