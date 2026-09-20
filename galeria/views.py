@@ -9,8 +9,10 @@ from galeria.models import Fotografia
 
 # Função responsável pela página PRINCIPAL da aplicação
 def index(request):  # para responder, preciso receber a requisição
-    # Puxa os itens do banco de dados
-    fotografias = Fotografia.objects.all()
+    # Puxa os itens do banco de dados em forma de objeto
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True) # Vai pegar todos os itens do banco de dados onde o campo publicado seja verdadeiro
+    #Ordenado por datar
+    
     
     # O render também permite enviar informações dentro de um dicionário
     return render(request, 'galeria/index.html', {"cards": fotografias}) #Primeiro parâmetro e passar devolta a requisição
