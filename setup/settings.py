@@ -119,6 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
+# Static
 # Variável global para referenciar o diretório "static"
 STATIC_URL = 'static/'
 
@@ -133,7 +134,7 @@ STATICFILES_DIRS = [
 #estáticos para que ele faça a implantação/manipulação de onde estão todos os arquivos estáticos
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Media
+# Media files
 # É o caminho absoluto para o diretório onde o python vai coletar essas mídias
 # Será feito uma busca por um diretório chamado "media" no diretório base
 MEDIA_ROOT = os.path.join(BASE_DIR, "media") #A raiz das mídias

@@ -25,3 +25,7 @@ def imagem(request, foto_id):
     
     # O render também permite enviar informações dentro de um dicionário
     return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
+
+def buscar(request):
+    
+    return render(request, "galeria/buscar.html")
