@@ -21,11 +21,22 @@ def index(request):  # para responder, preciso receber a requisição
     
 # Responsável por exibir imagem.html
 def imagem(request, foto_id):
-    fotografia = get_object_or_404(Fotografia, pk=foto_id) #Ou pega o objeto ou tras um não encontrado
+    fotografia = get_object_or_404(Fotografia, pk=foto_id) #Ou pega o objeto com o id indicado ou tras um não encontrado
+    #PK pega a primary key que vem com o foto_id, que é passado pelo arquivo index.html nesse trecho <a href="{% url 'imagem' fotografia.id %}">
+    
     
     # O render também permite enviar informações dentro de um dicionário
     return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
 
 def buscar(request):
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)
     
-    return render(request, "galeria/buscar.html")
+    # Confere se existe o termo buscar dentro das informações passadas pela url/ Essa informação fica em request.GET
+    if "buscar" in request.GET:    
+        
+        # Coloca na variável nome_a_bucar o que foi digitado na caixa de pesquisa
+        nome_a_buscar = request.GET["buscar"] # O buscar faz referência ao que colocamos no arquivo "_menu.html", dentro do <input>: o name "buscar", localizado na linha de código 8.
+        if nome_a_buscar:
+            fotografias = fotografias.filter(nome__icontains=nome_a_buscar) # Busca se existe alguima parte que faz sentido co o nome que está sendo buscado
+    
+    return render(request, "galeria/buscar.html", {"cards": fotografias})
