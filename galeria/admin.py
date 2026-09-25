@@ -12,7 +12,7 @@ class ListandoFotografias(admin.ModelAdmin):
     list_display = ("id", "nome", "legenda", "publicado", ) # Formata a forma como a tabela é apresentada
     list_display_links = ("id", "nome", )# Muda o que é um link na tabela
     search_fields = ("nome", ) # Adiciona um campo de busca no django admin
-    list_filter = ("categoria", ) # Adiciona um filtro pela categoria
+    list_filter = ("categoria", "usuario") # Adiciona um filtro pela categoria
     list_editable = ("publicado", )
     list_per_page = 10 # Responsável por dizer quantos itens da tabela vão ser mostrado por vez
 

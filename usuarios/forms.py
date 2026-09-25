@@ -81,3 +81,26 @@ class CadastroForms(forms.Form):
         )
     )
     
+    """ Método que permite fazer a validação dos nomes cadastrados
+        Precisa começar com "clean" acompanhado com o nome do campo do formulário
+        que é preciso validar, pois o django interpreta dessa forma
+    """
+    def clean_nome_cadastro(self):
+        nome = self.cleaned_data.get("nome_cadastro") #Pega as informações passadas em nome_cadastro
+        
+        if nome:
+            nome = nome.strip() # Tira os espaços no inicio e no fim da string
+            if " " in nome:
+                raise forms.ValidationError("Espaços não são permitidos nesse campo") #Erro caso exista espaço na string
+            else:
+                return nome
+            
+    def clean_senha_2(self):
+        senha_1 = self.cleaned_data.get("senha_1") #Recebe a senha 1
+        senha_2 = self.cleaned_data.get("senha_2") #Recebe a senha 2
+        
+        if senha_1 and senha_2: # Verifica se as senhas existem
+            if senha_1 != senha_2: # Compara se elas são diferentes
+                raise forms.ValidationError("Senhas não são iguais") #Retorna mensagem de erro
+            else:
+                return senha_2
