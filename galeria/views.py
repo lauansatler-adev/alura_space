@@ -2,13 +2,19 @@
     O que vai ser renderizado e o conteúdo que as páginas irão ter
 """
 
-from django.shortcuts import render, get_object_or_404 # Tem a função de renderizar páginas html
+from django.shortcuts import render, get_object_or_404, redirect # Tem a função de renderizar páginas html
 # Combina um ficheiro HTML com um dicionário de dados e devolve uma resposta HTTP completa para o navegador do ultilizador
 from django.http import HttpResponse #Forma de conseguir responder uma requisição(enviar uma resposta HTTP)
 from galeria.models import Fotografia
+from django.contrib import messages
 
 # Função responsável pela página PRINCIPAL da aplicação
 def index(request):  # para responder, preciso receber a requisição
+    
+    if not request.user.is_authenticated: # Verifica se o usuiário esta autenticado
+        messages.error(request, "Usuário não logado")
+        return redirect("login") # Caso não, retorna a página de login
+    
     # Puxa os itens do banco de dados em forma de objeto
     fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True) # Vai pegar todos os itens do banco de dados onde o campo publicado seja verdadeiro
     #Ordenado por datar
@@ -29,6 +35,12 @@ def imagem(request, foto_id):
     return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
 
 def buscar(request):
+    
+    
+    if not request.user.is_authenticated: # Verifica se o usuiário esta autenticado
+        messages.error(request, "Usuário não logado")
+        return redirect("login") # Caso não, retorna a página de login
+        
     fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)
     
     # Confere se existe o termo buscar dentro das informações passadas pela url/ Essa informação fica em request.GET

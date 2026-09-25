@@ -30,6 +30,8 @@ class Fotografia(models.Model): # Herdando a biblioteca
     foto = models.ImageField(upload_to="fotos/%Y/%m/%d/", blank=True)# Cria um campo onde posso selecionar um arquivo de imagem
     publicado = models.BooleanField(default=False) # Cria un campo com uma checkbox
     data_fotografia = models.DateTimeField(default=datetime.now, blank=False) #Cria um campo com a data de hora da modificação
+    usuario = models.ForeignKey()
+    
     
     # Devolve o nome de cada item
     def __str__(self):
